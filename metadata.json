@@ -1,0 +1,6 @@
+{
+  "name": "AL-GHOUL Burger Kitchen",
+  "description": "A premium, dark luxury, horror-inspired burger ordering web app with live price calculation, customizable beef and chicken burgers, sound effects, and Google Sheets Apps Script integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

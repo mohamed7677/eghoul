@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #090909;
+  --color-blood-red: #A10017;
+  --color-blood-dark: #5A000B;
+  --color-burnt-copper: #C65B2D;
+  --color-bone-white: #F5F1EA;
+  --color-smoky-gray: #161514;
+  --color-charcoal: #221F1D;
+  
+  --font-sans: "Cairo", "Inter Tight", "Inter", sans-serif;
+  --font-display: "Cairo", "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Custom styles and animations */
+@layer utilities {
+  .text-glow-red {
+    text-shadow: 0 0 10px rgba(161, 0, 23, 0.6), 0 0 20px rgba(161, 0, 23, 0.3);
+  }
+  .text-glow-copper {
+    text-shadow: 0 0 10px rgba(198, 91, 45, 0.6), 0 0 20px rgba(198, 91, 45, 0.3);
+  }
+  .box-shadow-blood {
+    box-shadow: 0 4px 30px rgba(161, 0, 23, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .box-shadow-copper {
+    box-shadow: 0 4px 30px rgba(198, 91, 45, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .border-glow-red {
+    border-color: rgba(161, 0, 23, 0.4);
+    box-shadow: 0 0 15px rgba(161, 0, 23, 0.1);
+  }
+  .border-glow-copper {
+    border-color: rgba(198, 91, 45, 0.4);
+    box-shadow: 0 0 15px rgba(198, 91, 45, 0.1);
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090909;
+}
+::-webkit-scrollbar-thumb {
+  background: #221F1D;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A10017;
+}
+
+/* Smoke Overlay Animation */
+@keyframes smokeWave {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 0.03;
+  }
+  50% {
+    transform: translate(-2%, 2%) scale(1.1) rotate(180deg);
+    opacity: 0.08;
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(360deg);
+    opacity: 0.03;
+  }
+}
+
+.ambient-smoke {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle, rgba(161,0,23,0.06) 0%, transparent 60%),
+                    radial-gradient(circle, rgba(198,91,45,0.04) 0%, transparent 50%);
+  z-index: 1;
+  pointer-events: none;
+  animation: smokeWave 30s infinite linear;
+}
+
+/* Glitch distortion keyframes */
+@keyframes glitch {
+  0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: skew(0.3deg);
+  }
+  20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: skew(-0.5deg);
+  }
+  40% {
+    clip-path: inset(25% 0 58% 0);
+    transform: skew(0.8deg);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: skew(-0.8deg);
+  }
+  80% {
+    clip-path: inset(11% 0 75% 0);
+    transform: skew(0.5deg);
+  }
+  100% {
+    clip-path: inset(40% 0 61% 0);
+    transform: skew(0deg);
+  }
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #090909;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 #A10017;
+  clip-path: inset(0 0 0 0);
+  animation: glitch 1.5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 #C65B2D, 0 1px #A10017;
+  clip-path: inset(0 0 0 0);
+  animation: glitch 1.2s infinite linear alternate-reverse;
+}
+
+/* Pulse pulse overlay */
+@keyframes pulseOverlay {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.vignette-ambient {
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.95);
+  pointer-events: none;
+}
+
+/* Heartbeat pulse */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.03); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.03); }
+  70% { transform: scale(1); }
+}
+
+.blood-heartbeat {
+  animation: heartbeat 2s infinite ease-in-out;
+}
